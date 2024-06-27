@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    {% load static %}
+    {% load tailwind_tags %}
+    {% tailwind_css %}
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto mt-10 max-w-md p-6 bg-white rounded-lg shadow-lg">
+        <h2 class="text-2xl font-bold mb-6 text-gray-900">Login</h2>
+        {% if messages %}
+            <ul class="mb-4">
+                {% for message in messages %}
+                    <li class="text-red-500">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <form method="post" class="space-y-4">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Login</button>
+        </form>
+        <p class="mt-4 text-gray-700">Forgot your password? <a href="{% url 'password_reset' %}" class="text-blue-500">Reset it here</a></p>
+        <p class="mt-4 text-gray-700">Don't have an account? <a href="{% url 'register' %}" class="text-blue-500">Register here</a></p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+{% extends 'summarizer/base.html' %}
+{% block content %}
+    <h1 class="text-2xl font-bold mb-6 text-gray-900">Articles</h1>
+    <form method="get" class="mb-6">
+        <div class="flex space-x-4">
+            <input type="text" name="title__icontains" placeholder="Title contains" class="border border-gray-300 p-2 rounded">
+            <select name="category" class="border border-gray-300 p-2 rounded">
+                <option value="">Select Category</option>
+                {% for category in categories %}
+                    <option value="{{ category.id }}">{{ category.name }}</option>
+                {% endfor %}
+            </select>
+            <select name="user" class="border border-gray-300 p-2 rounded">
+                <option value="">Select User</option>
+                {% for user in users %}
+                    <option value="{{ user.id }}">{{ user.username }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Filter</button>
+        </div>
+    </form>
+    <ul class="space-y-4">
+        {% for article in articles %}
+        <li class="bg-white shadow-md rounded-lg p-4">
+            <a href="{% url 'article_detail' article.pk %}" class="text-xl font-semibold text-gray-900">{{ article.title }}</a>
+            
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'summarizer/base.html' %}
+{% block content %}
+    <div class="bg-white shadow-lg rounded-lg p-6">
+        <h2 class="text-2xl font-bold mb-6 text-gray-900">Profile</h2>
+        <p class="text-gray-700 mb-4">Welcome, {{ user.username }}!</p>
+        <p class="text-gray-700 mb-4">{{ user.userprofile.bio }}</p>
+        {% if user.userprofile.profile_picture %}
+            <img src="{{ user.userprofile.profile_picture.url }}" alt="Profile Picture" class="rounded-full h-32 w-32">
+        {% endif %}
+    </div>
+{% endblock %}

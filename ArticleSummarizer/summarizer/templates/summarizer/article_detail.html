@@ -1,0 +1,18 @@
+{% extends 'summarizer/base.html' %}
+{% block content %}
+    <h1 class="text-3xl font-bold mb-6 text-gray-900">{{ article.title }}</h1>
+    <p class="text-gray-700 mb-6">{{ article.content }}</p>
+    <h2 class="text-2xl font-semibold mb-4 text-gray-900">Summaries</h2>
+    <ul class="space-y-4 mb-4">
+    {% for summary in article.summaries.all %}
+        <li class="bg-white shadow-md rounded-lg p-4">
+            {{ summary.summary_text }}
+            <form action="{% url 'delete_summary' article.pk summary.pk %}" method="post" class="inline">
+                {% csrf_token %}
+                <button type="submit" class="ml-2 text-red-600 hover:text-red-900">Delete</button>
+            </form>
+        </li>
+    {% endfor %}
+    </ul>
+    <a href="{% url 'generate_summary' article.pk %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Generate Summary</a>
+{% endblock %}
