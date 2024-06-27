@@ -9,8 +9,8 @@ Avant de commencer, assurez-vous d'avoir Python 3.x installé sur votre machine.
 ## Installation
 
 1. **Clonage du Repository**
-git clone <url_du_repository>
-cd nom_du_projet
+git clone <https://github.com/CharlesDevif/projet-django>
+
 
 ## Configuration
 
