@@ -63,23 +63,19 @@ def add_article(request):
     if request.method == 'POST':
         article_form = ArticleForm(request.POST)
         category_form = CategoryForm(request.POST)
-        
-        # Vérifier si l'article est valide et enregistrer
-        if article_form.is_valid():
+        if article_form.is_valid() and (category_form.is_valid() or 'category' in article_form.cleaned_data):
+            if category_form.is_valid() and category_form.cleaned_data['name']:
+                category = category_form.save()
+            else:
+                category = article_form.cleaned_data['category']
             article = article_form.save(commit=False)
             article.user = request.user
-            
-            # Vérifier si une catégorie a été sélectionnée ou ajoutée
-            if 'category' in request.POST and request.POST['category']:
-                category = Category.objects.get_or_create(name=request.POST['category'])[0]
-                article.category = category
-            
+            article.category = category
             article.save()
             return redirect('index')
     else:
         article_form = ArticleForm()
         category_form = CategoryForm()
-    
     return render(request, 'summarizer/add_article.html', {'article_form': article_form, 'category_form': category_form})
 
 @login_required
